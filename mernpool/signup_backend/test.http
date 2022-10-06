@@ -1,0 +1,9 @@
+POST http://localhost:4242/app/register
+Content-Type: application/json
+
+{
+    "login": "prism",
+    "email": "prism@gmail.com",
+    "password": "prism1234",
+    "type": true
+}
