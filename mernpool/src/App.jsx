@@ -3,6 +3,7 @@ import axios from 'axios';
 
 class App extends Component {
     constructor() {
+
         super()
         this.state = {
             login: '',
@@ -72,15 +73,14 @@ class App extends Component {
                                            onChange={this.changeLogin}
                                            value={this.state.login}></input>
                                 </div>
-                                <label for="exampleInputEmail1" className="form-label mt-4">Email address</label>
+                                <label for="inputEmail1" className="form-label mt-4">Email address</label>
                                 <input
                                     type="text"
-                                    className="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
+                                    id="inputEmail1"
                                     placeholder="Enter email"
                                     onChange={this.changeEmail}
                                     value={this.state.email}
+                                    className="form-control form-group"
                                 />
                                 <small id="emailHelp" className="form-text text-muted"
                                 >We'll never share your email with anyone else.</small>
