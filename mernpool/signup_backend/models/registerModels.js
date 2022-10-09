@@ -3,7 +3,10 @@ const mongoose = require('mongoose')
 const registerTemplate = new mongoose.Schema({
     login: {
         type: String,
-        require:true
+        require:true,
+        unique: true,
+        min: 5,
+        max: 20
     },
     email: {
         type: String,
