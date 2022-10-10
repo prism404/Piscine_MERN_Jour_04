@@ -1,8 +1,17 @@
+GET http://localhost:4000/blogpool
+
 ###
 
-POST http://localhost:4000/login
+GET http://localhost:3000/blogpool/4
+
+###
+
+POST http://localhost:3000/blogpool
 Content-Type: application/json
 
 {
-    "login": "prismy"
+    "login": "amazing",
+    "email": "subscribe@gmail.com",
+    "password": "azerty",
+    "type": true
 }

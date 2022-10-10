@@ -1,39 +1,32 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const dotenv = require('dotenv')
-const routesUrls = require('./routes/routes')
-const cors = require('cors')
-const app = express()
-const jwt = require('jsonwebtoken')
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const routesUrls = require("./routes/routes");
+const Billet = require('./models/billet')
+const billetRouter = require("./routes/billets");
+const methodOverride = require('method-override');
+const app = express();
 
-dotenv.config()
+dotenv.config();
+app.set("view engine", "ejs");
+app.use(methodOverride('_method'))
 
-mongoose.connect(process.env.DATABASE_ACCESS, () => console.log('Database connected !'))
 
-// Route Middleware
-app.use('/api/user', routesUrls)
-
-const posts = [
-    {
-        login: "logan",
-        email: "logan@gmail.com"
-    },
-    {
-        login: "oliver",
-        email: "oliver@gmail.com"
-    }
-]
-
-app.post('/login', (req, res) => {
-    // Authenticate user
-    const login = req.body.login
-    const member = { login: login }
-
-    const accessToken = jwt.sign(member, process.env.ACCESS_TOKEN_SECRET)
-    res.json({ accessToken: accessToken })
+mongoose.connect(process.env.DATABASE_ACCESS, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+    console.log('Connected to database !')
 })
 
-app.use(express.json())
-app.use(cors())
 
-app.listen(4000, () => console.log("Server is up and running !"))
+// Route Middleware
+app.use("/blogpool", routesUrls);
+app.get("/", async (req, res) => {
+  const billets = await Billet.find().sort({ createdAt: 'desc' })
+  res.render("billets/index", { billets: billets });
+});
+
+app.use("/billets", billetRouter);
+
+// app.use(express.urlencoded({ extended: false }))
+app.use(express.json());
+
+app.listen(4000, () => console.log("Server is up and running !"));
